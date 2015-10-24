@@ -6,7 +6,7 @@ int main(void)
 {
 	int size;
 	scanf("%d", &size);
-	int *xs = malloc(size * sizeof(*xs));
+	int xs[size];
 
 	int i;
 	for (i = 0; i < size; i++) {
@@ -46,7 +46,6 @@ int main(void)
 			printf("%d", xs[i]);
 		}
 	}
-	free(xs);
 	putchar('\n');
 	return 0;
 }

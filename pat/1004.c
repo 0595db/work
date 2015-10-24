@@ -13,7 +13,7 @@ int main(void)
 	int size;
 	scanf("%d", &size);
 
-	struct info *user = malloc(size * sizeof(*user));
+	struct info user[size];
 	int i;
 	for (i = 0; i < size; i++) {
 		scanf("%s %s %d", 
@@ -23,7 +23,6 @@ int main(void)
 	qsort(user, size, sizeof(*user), compar);
 	printf("%s %s\n", user[size - 1].name, user[size - 1].ID);
 	printf("%s %s\n", user[0].name, user[0].ID);
-	free(user);
 	return 0;
 }
 
