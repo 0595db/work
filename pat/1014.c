@@ -4,34 +4,38 @@
 
 int main(void)
 {
-	int size = 61;
-	char s[4][size];
+	int row = 4, col = 61;
+	char s[row][col];
 	int i;
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < row; i++) {
 		scanf("%s", s[i]);
 	}
 	
-	char *week[] = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
-	char *hour = "0123456789ABCDEFGHIJKLMN";
+	char *p = NULL;
+	char *weeks = "ABCDEFG";
+	char *hours = "0123456789ABCDEFGHIJKLMN";
+	char *base[] = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
 	int begin = 0;
-	for (i = 0; s[0][i] != '\0' && s[1][i] != '\0'; i++) {
-		if (s[0][i] == s[1][i]
-		&& s[0][i] >= 'A' && s[0][i] <= 'G'
-		&& begin == 0) {
-			begin = 1;
-			printf("%s ", week[s[0][i] - 'A']);
-		} else if (s[0][i] == s[1][i]
-		&& ((s[0][i] >= '0' && s[0][i] <= '9')
-		|| (s[0][i] >= 'A' && s[0][i] <= 'N'))
-		&& begin == 1) {
-			printf("%02ld:", strchr(hour, s[0][i]) - hour);
-			break;
+	char *s1 = s[0];
+	char *s2 = s[1];
+	for (i = 0; s1[i] != '\0' && s2[i] != '\0'; i++) {
+		if (s1[i] == s2[i]) {
+			if (begin == 0
+			&& (p = strchr(weeks, s1[i])) != NULL) {
+				printf("%s ", base[p - weeks]);
+				begin = 1;
+			} else if (begin == 1
+			&& (p = strchr(hours, s1[i])) != NULL) {
+				printf("%02ld:", p - hours);
+				break;
+			}
 		}
 	}
-
-	for (i = 0; s[2][i] != '\0' && s[3][i] != '\0'; i++) {
-		if (s[2][i] == s[3][i]
-		&& isalpha(s[2][i]) != 0) {
+	
+	s1 = s[2];
+	s2 = s[3];
+	for (i = 0; s1[i] != '\0' && s2[i] != '\0'; i++) {
+		if (s1[i] == s2[i] && isalpha(s1[i]) != 0) {
 			printf("%02d\n", i);
 			break;
 		}
