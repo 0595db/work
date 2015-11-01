@@ -4,14 +4,16 @@ int main(void)
 {
 	int x;
 	scanf("%d", &x);
-
-	int step;
-	for (step = 0; x != 1; step++) {
+	
+	int i;
+	for (i = 0; x != 1; i++) {
 		if (x % 2 == 1) {
 			x = 3 * x + 1;
 		}
+
 		x /= 2;
 	}
-	printf("%d\n", step);
+
+	printf("%d\n", i);
 	return 0;
 }

@@ -1,53 +1,39 @@
 #include <stdio.h>
+#define XS_MAX 101
 
 int main(void)
 {
 	int size;
 	scanf("%d", &size);
-	int i;
-	for (i = 0; i < size; i++) {
-		char xs[101];
+
+	char xs[XS_MAX];
+	for (int i = 0; i < size; i++) {
 		scanf("%s", xs);
 
-		int a = 0, b = 0, c = 0;
-		int j, ok = 1;
-		for (j = 0; xs[j] != 'P' && xs[j] != '\0'; j++) {
-			if (xs[j] == 'A') {
-				a++;
+		int a[] = {0, 0, 0};
+		int k = 0, cnt_p = 0, cnt_t = 0;
+		for (int j = 0; xs[j] != '\0'; j++) {
+			if (xs[j] == 'P' && cnt_t == 0) {
+				cnt_p++;
+				k++;
+			} else if (xs[j] == 'T' && cnt_p == 1) {
+				cnt_t++;
+				k++;
+			} else if (xs[j] == 'A' && k < 3) {
+					a[k]++;
 			} else {
-				ok = 0;
-				goto end;
-			}
-		}
-		
-		for (++j; xs[j] != 'T' && xs[j] != '\0'; j++) {
-			if (xs[j] == 'A') {
-				b++;
-			} else {
-				ok = 0;
-				goto end;
+				goto NO;
 			}
 		}
 
-		for (++j; xs[j] != '\0'; j++) {
-			if (xs[j] == 'A') {
-				c++;
-			} else {
-				ok = 0;
-				goto end;
-			}
-		}
-
-		if ((b > 0 && a * b == c) == 0) {
-			ok = 0;
-		}
-
-		end:;
-		if (ok == 1) {
+		if (cnt_p == 1 && cnt_t == 1
+		&& a[1] > 0 && a[0] * a[1] == a[2]) {
 			puts("YES");
 		} else {
+			NO:;
 			puts("NO");
 		}
 	}
+
 	return 0;
 }
